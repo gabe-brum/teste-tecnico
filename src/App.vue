@@ -2,7 +2,7 @@
   <div id="app">
     <div class="container">
       <header>
-        <img src="assets/imperador.png" alt="imperador palpatine">
+        <img src="./assets/imperador.png" alt="imperador palpatine">
         <h2>Precisamos derrotar o imperador palpatine!</h2>
         <h3>Cadastre-se para ser um aliado</h3>
       </header>
@@ -12,7 +12,7 @@
         <input type="text" id="planeta" placeholder="Planeta" required v-model="candidato.planet">
         <input type="date" id="nome" placeholder="Data de nascimento DD/MM/AAAA" required v-model="candidato.birthDate">
         <textarea id="descricao" placeholder="Descrição da motivação" required v-model="candidato.description"></textarea>
-        <button class="btn waves-effect waves-light" type="submit" name="action">cadastrar
+        <button class="btn waves-effect waves-light" type="submit">cadastrar
           <i class="material-icons right">send</i>
         </button>
       </form>
@@ -46,7 +46,7 @@
 </template>
 
 <script>
-  import Candidatos from './service/candidatos'
+  import candidatosImport from './service/candidatos'
 
   export default {
 
@@ -72,7 +72,7 @@
     methods:{
 
       listar(){
-        Candidatos.listar().then(resposta => {
+        candidatosImport.listar().then(resposta => {
           this.candidatos = resposta.data
         })
       },
@@ -80,9 +80,9 @@
       salvar(){
 
         if(!this.candidato.id){
-          Candidatos.salvar(this.candidato).then(resposta => {
+          candidatosImport.salvar(this.candidato).then(() => {
           this.candidato = {}
-          resposta.alert("Salvo com sucesso!")
+          alert("Salvo com sucesso!")
           this.listar()
           this.errors = []
           }).catch(e =>{
@@ -90,9 +90,9 @@
           })
 
         }else{
-          Candidatos.atualizar(this.candidato).then(resposta => {
+          candidatosImport.atualizar(this.candidato).then(() => {
           this.candidato = {}
-          resposta.alert("Atualizado com sucesso!")
+          alert("Atualizado com sucesso!")
           this.listar()
           this.errors = []
           }).catch(e =>{
@@ -108,8 +108,8 @@
       remover(candidato){
 
         if(confirm("Realmente deseja excluir o candidato?")){
-          Candidatos.apagar(candidato).then(resposta =>{
-          resposta.this.listar()
+          candidatosImport.apagar(candidato).then(() =>{
+          this.listar()
           this.errors = []
           }).catch(e =>{
             this.errors = e.response.data.errors
