@@ -1,17 +1,62 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="pt-br">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title><%= htmlWebpackPlugin.options.title %></title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Cadastro Aliados</title>
   </head>
   <body>
-    <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
+    <div class="container">
+      <header>
+        <img src="../src/assets/imperador.png" alt="Imperador Palpatine">
+        <h2>Precisamos derrotar o imperador palpatine!</h2>
+        <h3>Cadastre-se para ser um aliado</h3>
+      </header>
+
+      <form @submit.prevent="salvar">
+        <input type="text" id="nome" placeholder="Nome" required v-model="candidato.name">
+        <input type="text" id="planeta" placeholder="Planeta" required v-model="candidato.planet">
+        <input type="date" id="nome" placeholder="Data de nascimento DD/MM/AAAA" required v-model="candidato.birthDate">
+        <textarea id="descricao" placeholder="Descrição da motivação" required v-model="candidato.description"></textarea>
+        <button class="btn waves-effect waves-light" type="submit" name="action">cadastrar
+          <i class="material-icons right">send</i>
+        </button>
+      </form>
+
+      <table>
+        <thead>
+          <tr>
+            <th>nome</th>
+            <th>planeta</th>
+            <th>data de nascimento</th>
+            <th>descrição</th>
+            <th>opções</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr v-for="candidato of candidatos" :key="candidato.id">
+            <td>{{ candidato.name }}</td>
+            <td>{{ candidato.planet }}</td>
+            <td>{{ candidato.birthDate }}</td>
+            <td>{{ candidato.description }}</td>
+            <td>
+              <button class="waves-effect btn-small blue darken1"><i class="material-icons">create</i></button>
+              <button class="waves-effect btn-small red darken1"><i class="material-icons">delete_sweep</i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
     <div id="app"></div>
-    <!-- built files will be auto injected -->
+  
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   </body>
 </html>
